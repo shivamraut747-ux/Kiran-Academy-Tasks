@@ -6,13 +6,16 @@ Python 3 + MySQL console application. Architecture: **Main/Menu → Service → 
 1. Candidate Management  2. Company Management  3. Job Management  4. Applications (eligibility, shortlist, reject, withdraw, history)
 5. Interviews (schedule, feedback)  6. Offers  7. Placements  8. Reports (13)  9. Exit
 
+## Requirements
+Python 3 and MySQL Server installed on your computer.
+
 ## Setup
 ```bash
 py -m venv .venv
 .venv\Scripts\activate          # Windows   (Mac/Linux: source .venv/bin/activate)
 pip install -r requirements.txt
 ```
-1. Edit MySQL host/user/password in `rpms/util/db_connection.py` (database name: `recruitment_portal`).
+1. **Set your MySQL password** in `rpms/util/db_connection.py` before running (host, user and password; the default password is `root`). Database name: `recruitment_portal`.
 2. Load the database (this **wipes** existing data): in MySQL run `SOURCE sql/rpms_full_setup.sql;`
 3. Run `python main.py`. Demo logins: `amit.recruiter`, `sneha.recruiter`, `neha.placement`, `rahul.placement`, `admin`.
 
@@ -21,6 +24,9 @@ pip install -r requirements.txt
 python -m unittest discover -s tests -v
 ```
 Tests create their own rows and delete them afterwards. They need the sample database loaded.
+
+## HTML pages
+Open `recruitment-placement-ui/login.html` in your browser, click Login, then use the left menu to visit the other pages.
 
 ## Folder map
 | Path | Purpose |
