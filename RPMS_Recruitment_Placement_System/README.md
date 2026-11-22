@@ -44,3 +44,5 @@ Tests create their own rows and delete them afterwards. They need the sample dat
 
 ## Documents
 - [Test cases](docs/TEST_CASES.md) · [Data dictionary](docs/DATA_DICTIONARY.md) · [ER diagram](docs/ER_DIAGRAM.md) · [Screenshots checklist](docs/SCREENSHOTS_CHECKLIST.md)
+
+Set your MySQL password in rpms/util/db_connection.py before running.
