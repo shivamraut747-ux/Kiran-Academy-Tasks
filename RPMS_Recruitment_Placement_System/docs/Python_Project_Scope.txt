@@ -1,0 +1,18 @@
+Recruitment & Placement Management System
+Python Student Project Scope
+
+Modules:
+1. Candidate Management
+2. Company Management
+3. Job Management
+4. Eligibility Check
+5. Job Application
+6. Interview Management
+7. Offer Management
+8. Placement Management
+9. Reports
+
+Architecture:
+Main -> Service -> DAO -> MySQL
+
+Students should extend this starter project with the remaining modules.

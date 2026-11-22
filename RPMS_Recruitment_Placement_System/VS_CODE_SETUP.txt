@@ -1,0 +1,61 @@
+RPMS PYTHON - VS CODE SETUP
+===========================
+
+1. Extract RPMS_Python_VSCode_Project.zip
+2. Open Visual Studio Code
+3. File > Open Folder
+4. Select folder: RPMS_Python_VSCode
+
+FIRST TIME SETUP
+----------------
+Open Terminal in VS Code and run:
+
+Windows:
+    py -m venv .venv
+    .venv\Scripts\activate
+    pip install -r requirements.txt
+
+If 'py' command is unavailable:
+    python -m venv .venv
+    .venv\Scripts\activate
+    pip install -r requirements.txt
+
+DATABASE
+--------
+Current database name:
+    recruitment_portal
+
+Check:
+    rpms/util/db_connection.py
+
+Default values:
+    host = localhost
+    port = 3306
+    user = root
+    password = root
+
+Change the password according to your MySQL installation.
+
+RUN
+---
+Easy method:
+    python main.py
+
+OR:
+    python -m rpms.app.main
+
+OR press F5 and choose:
+    Run RPMS
+
+REQUIRED VS CODE EXTENSIONS
+---------------------------
+- Python (Microsoft)
+- Python Debugger (Microsoft)
+
+DATABASE SCRIPT
+---------------
+If required, execute:
+    sql/rpms_full_setup.sql
+
+The SQL file in this VS Code project uses database:
+    recruitment_portal

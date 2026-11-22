@@ -1,0 +1,223 @@
+# ER Diagram
+
+Mermaid source (renders on GitHub and in VS Code with the *Markdown Preview Mermaid Support* extension). Image: `docs/er_diagram.png`.
+
+![ER diagram](er_diagram.png)
+
+```mermaid
+erDiagram
+    qualifications {
+        INT qualification_id PK
+        VARCHAR qualification_name
+        TINYINT is_active
+        DATETIME created_at
+    }
+    locations {
+        INT location_id PK
+        VARCHAR city_name
+        VARCHAR state_name
+        VARCHAR country_name
+        TINYINT is_active
+    }
+    roles {
+        INT role_id PK
+        VARCHAR role_code
+        VARCHAR role_name
+        TINYINT is_active
+        DATETIME created_at
+    }
+    users {
+        INT user_id PK
+        VARCHAR username
+        VARCHAR password_hash
+        VARCHAR full_name
+        VARCHAR email
+        INT role_id FK
+        VARCHAR status
+        DATETIME last_login_at
+        DATETIME created_at
+    }
+    candidates {
+        INT candidate_id PK
+        VARCHAR candidate_code
+        VARCHAR full_name
+        VARCHAR email
+        VARCHAR mobile
+        DATE date_of_birth
+        VARCHAR gender
+        VARCHAR qualification
+        VARCHAR college
+        VARCHAR university
+        SMALLINT passing_year
+        DECIMAL percentage
+        DECIMAL cgpa
+        INT backlog_count
+        VARCHAR primary_technology
+        VARCHAR current_location
+        VARCHAR preferred_location
+        VARCHAR profile_status
+        VARCHAR placement_status
+        DATETIME created_at
+        DATETIME updated_at
+    }
+    skills {
+        INT skill_id PK
+        VARCHAR skill_name
+        VARCHAR category
+        TINYINT is_active
+    }
+    candidate_skills {
+        INT candidate_skill_id PK
+        INT candidate_id FK
+        INT skill_id FK
+        VARCHAR proficiency_level
+        DECIMAL years_experience
+        TINYINT is_primary
+    }
+    companies {
+        INT company_id PK
+        VARCHAR company_code
+        VARCHAR company_name
+        VARCHAR industry
+        VARCHAR website
+        VARCHAR location
+        VARCHAR company_type
+        VARCHAR hr_name
+        VARCHAR hr_email
+        VARCHAR hr_mobile
+        VARCHAR status
+        DATETIME created_at
+    }
+    jobs {
+        INT job_id PK
+        VARCHAR job_code
+        INT company_id FK
+        VARCHAR job_title
+        VARCHAR employment_type
+        VARCHAR location
+        INT openings
+        DECIMAL min_package_lpa
+        DECIMAL max_package_lpa
+        DECIMAL min_percentage
+        SMALLINT min_passing_year
+        SMALLINT max_passing_year
+        INT max_backlogs
+        DECIMAL experience_min_years
+        VARCHAR qualification_rule
+        DATE posted_date
+        DATE application_deadline
+        VARCHAR status
+        INT created_by FK
+        DATETIME created_at
+    }
+    job_skills {
+        INT job_skill_id PK
+        INT job_id FK
+        INT skill_id FK
+        VARCHAR minimum_level
+        TINYINT mandatory_flag
+    }
+    applications {
+        INT application_id PK
+        VARCHAR application_code
+        INT candidate_id FK
+        INT job_id FK
+        DATETIME applied_at
+        VARCHAR eligibility_status
+        VARCHAR eligibility_reason
+        VARCHAR application_status
+        VARCHAR source
+        INT assigned_recruiter_id FK
+        DATETIME updated_at
+    }
+    application_history {
+        BIGINT history_id PK
+        INT application_id FK
+        VARCHAR old_status
+        VARCHAR new_status
+        VARCHAR remarks
+        INT changed_by FK
+        DATETIME changed_at
+    }
+    interview_rounds {
+        INT interview_id PK
+        INT application_id FK
+        INT round_number
+        VARCHAR round_type
+        DATE scheduled_date
+        TIME scheduled_time
+        VARCHAR mode
+        VARCHAR interviewer_name
+        VARCHAR meeting_or_location
+        VARCHAR status
+        DATETIME created_at
+    }
+    interview_feedback {
+        INT feedback_id PK
+        INT interview_id FK
+        DECIMAL technical_rating
+        DECIMAL communication_rating
+        DECIMAL problem_solving_rating
+        DECIMAL overall_rating
+        VARCHAR recommendation
+        TEXT remarks
+        INT submitted_by FK
+        DATETIME submitted_at
+    }
+    offers {
+        INT offer_id PK
+        VARCHAR offer_code
+        INT application_id FK
+        VARCHAR designation
+        DECIMAL offered_package_lpa
+        DATE offer_date
+        DATE expected_joining_date
+        VARCHAR offer_status
+        VARCHAR remarks
+        DATETIME created_at
+    }
+    placements {
+        INT placement_id PK
+        INT candidate_id FK
+        INT company_id FK
+        INT job_id FK
+        INT offer_id FK
+        VARCHAR designation
+        DECIMAL final_package_lpa
+        DATE expected_joining_date
+        DATE actual_joining_date
+        VARCHAR joining_status
+        VARCHAR placement_status
+        DATETIME created_at
+    }
+    activity_logs {
+        BIGINT log_id PK
+        INT user_id FK
+        VARCHAR module_name
+        VARCHAR action_name
+        VARCHAR record_id
+        VARCHAR description
+        DATETIME logged_at
+    }
+    roles ||--o{ users : "role_id"
+    candidates ||--o{ candidate_skills : "candidate_id"
+    skills ||--o{ candidate_skills : "skill_id"
+    companies ||--o{ jobs : "company_id"
+    users ||--o{ jobs : "created_by"
+    jobs ||--o{ job_skills : "job_id"
+    skills ||--o{ job_skills : "skill_id"
+    candidates ||--o{ applications : "candidate_id"
+    jobs ||--o{ applications : "job_id"
+    users ||--o{ applications : "assigned_recruiter_id"
+    applications ||--o{ application_history : "application_id"
+    users ||--o{ application_history : "changed_by"
+    applications ||--o{ interview_rounds : "application_id"
+    interview_rounds ||--o{ interview_feedback : "interview_id"
+    users ||--o{ interview_feedback : "submitted_by"
+    applications ||--o{ offers : "application_id"
+    candidates ||--o{ placements : "candidate_id"
+    companies ||--o{ placements : "company_id"
+    jobs ||--o{ placements : "job_id"
+    offers ||--o{ placements : "offer_id"
+    users ||--o{ activity_logs : "user_id"
+```
